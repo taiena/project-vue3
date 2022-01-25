@@ -12,19 +12,23 @@
             type="text"
             placeholder="Description"
         >
-        <button
+        <my-button
             @click.prevent="createPost"
             class="Btn"
             type="sumbit"
         >
             Create post
-        </button>
+        </my-button>
     </form>
 </template>
 
 <script>
+import MyButton from "./UI/MyButton"
 
 export default {
+    components: {
+        MyButton
+    },
 
     data() {
         return {
@@ -41,7 +45,7 @@ export default {
             this.$emit('create', this.post)
 
             console.log('created post: ', this.post);
-            
+
             this.post = {
                 title: "",
                 body: ""
@@ -69,15 +73,4 @@ export default {
     border: 1px solid DarkOrchid;
 }
 
-.Btn {
-    padding: 10px 15px;
-    color: darkorchid;
-    background: white;
-    border: 1px solid DarkOrchid;
-}
-
-.Btn:hover {
-    cursor: pointer;
-    background: LavenderBlush;
-}
 </style>

@@ -6,7 +6,7 @@
         </div>
 
         <my-button
-            @click.prevent="createPost"
+            @click="$emit('remove', post)"
             type="sumbit"
         >
             Delete

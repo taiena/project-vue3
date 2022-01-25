@@ -1,5 +1,5 @@
 <template>
-    <div class="PostsContainer">
+    <div v-if="posts.length > 0" class="PostsContainer">
         <h3>Posts</h3>
         <post-item
             v-for="post in posts"
@@ -8,6 +8,8 @@
             @remove="$emit('remove', post)"
         />
     </div>
+
+    <h3 v-else>Add your posts</h3>
 </template>
 
 <script>

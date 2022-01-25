@@ -14,7 +14,6 @@
         >
         <my-button
             @click.prevent="createPost"
-            class="Btn"
             type="sumbit"
         >
             Create post
@@ -23,12 +22,8 @@
 </template>
 
 <script>
-import MyButton from "./UI/MyButton"
 
 export default {
-    components: {
-        MyButton
-    },
 
     data() {
         return {

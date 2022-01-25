@@ -1,17 +1,19 @@
 <template>
     <form class="Form">
-        <input
+        <my-input
             v-model="post.title"
             class="Input"
             type="text"
             placeholder="Title"
-        >
-        <input
+        />
+        <br />
+        <my-input
             v-model="post.body"
             class="Input"
             type="text"
             placeholder="Description"
-        >
+        />
+        <br />
         <my-button
             @click.prevent="createPost"
             type="sumbit"
@@ -59,13 +61,6 @@ export default {
     margin-bottom: 1rem;;
     border: 1px solid DarkOrchid;
     background-color: GhostWhite;
-}
-
-.Input {
-    width: 100%;
-    margin-bottom: 1rem;
-    padding: 10px 15px;
-    border: 1px solid DarkOrchid;
 }
 
 </style>

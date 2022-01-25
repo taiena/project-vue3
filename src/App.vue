@@ -1,10 +1,29 @@
 <template>
 <div class="Container">
     <form class="Form">
-        <input class="Input" type="text" placeholder="Title">
-        <input class="Input" type="text" placeholder="Description">
-        <button class="Btn">Create post</button>
+        <input
+            :value="title"
+            @input="title = $event.target.value"
+            class="Input"
+            type="text"
+            placeholder="Title"
+        >
+        <input
+            :value="body"
+            @input="body = $event.target.value"
+            class="Input"
+            type="text"
+            placeholder="Description"
+        >
+        <button
+            @click.prevent="createPost"
+            class="Btn"
+            type="sumbit"
+        >
+            Create post
+        </button>
     </form>
+
     <div class="Post" v-for="post in posts" :key="post.id">
         <div><strong>Title: </strong>{{ post.title }}</div>
         <div><strong>Description: </strong>{{ post.body }}</div>
@@ -16,22 +35,23 @@
 export default {
     data() {
         return {
-            posts: [
-                {id: 1, title: 'Javascript', body: 'JS is cool'},
-                {id: 2, title: 'Python', body: 'Python is cool too'},
-            ],
-            
-            likes: 0,
-            dislikes: 0
+            posts: [],
+
+            title: "",
+            body: ""
         }
     },
 
     methods: {
-        addLike() {
-            this.likes++
-        },
-        addDislike() {
-            this.dislikes++
+        createPost() {
+            const newPost = {
+                id: Date.now(),
+                title: this.title,
+                body: this.body
+            }
+            this.posts.push(newPost)
+            this.title = ""
+            this.body = ""
         },
     }
 }

@@ -58,9 +58,7 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 1rem;
-    margin-bottom: 1rem;;
-    border: 1px solid DarkOrchid;
-    background-color: GhostWhite;
+    background-color: White;
 }
 
 </style>

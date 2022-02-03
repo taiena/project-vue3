@@ -19,7 +19,10 @@
     <post-list
         :posts="posts"
         @remove="removePost"
+        v-if="!isPostsLoading"
     />
+
+    <div v-if="!isPostsLoading">Loading posts...</div>
 </div>
 </template>
 
@@ -37,8 +40,8 @@ export default {
     data() {
         return {
             posts: [],
-
-            dialogVisible: false
+            dialogVisible: false,
+            isPostsLoading: false
         }
     },
 
@@ -62,12 +65,20 @@ export default {
 
         async fetchPosts() {
             try {
-                const response = await axios.get(
-                    "https://jsonplaceholder.typicode.com/posts?_limit=10"
-                )
-                this.posts = response.data
+                this.isPostsLoading = true
+
+                setTimeout(async () => {
+                    const response = await axios.get(
+                      "https://jsonplaceholder.typicode.com/posts?_limit=10"
+                    )
+                    this.posts = response.data
+                }, 1000)
+                
             } catch(e) {
                 alert('Some error')
+            } finally {
+                this.isPostsLoading = false
+
             }
          }
     }

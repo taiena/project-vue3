@@ -1,12 +1,14 @@
 <template>
     <div v-if="posts.length > 0" class="PostsContainer">
         <h3>Posts</h3>
-        <post-item
+        <transition-group name="post-list">
+            <post-item
             v-for="post in posts"
             :key="post.id"
             :post="post"
             @remove="$emit('remove', post)"
         />
+        </transition-group>
     </div>
 
     <h3 v-else>Add your posts</h3>
@@ -39,5 +41,20 @@ export default {
 h3 {
     color: DarkOrchid;
     margin-bottom: 1rem;
+}
+
+.post-list-item {
+    display: inline-block;
+}
+
+.post-list-enter-active,
+.post-list-leave-active {
+   transition: all 1s ease; 
+}
+
+.post-list-enter-from,
+.post-list-leave-to {
+    opacity: 0;
+    transform: translateY(30px);
 }
 </style>

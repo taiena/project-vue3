@@ -3,11 +3,20 @@
     <div class="HeaderBlock">
       <h2>Posts page</h2>
 
-      <my-button
-        @click="showDialog"
-      >
-        Create post
-      </my-button>
+      <div class="AppButtons">
+          <my-button
+              @click="showDialog"
+          >
+              Create post
+          </my-button>
+
+          <my-select
+              v-model="selectedSort"
+              :options="sortOptions"
+          />
+      </div>
+
+      
     </div>
 
     <my-dialog v-model:show="dialogVisible">
@@ -41,12 +50,28 @@ export default {
         return {
             posts: [],
             dialogVisible: false,
-            isPostsLoading: false
+            isPostsLoading: false,
+            selectedSort: "",
+            sortOptions: [
+                {value: 'title', name: 'Sort for titles'},
+                {value: 'body', name: 'Sort for bodies'}
+            ]
         }
     },
 
     mounted() {
-      this.fetchPosts()
+        this.fetchPosts()
+    },
+
+    watch: {
+        // сравниваем строки в полях у 2х постов (смотря какое поле выбрали)
+        selectedSort(newValue) {
+            this.posts.sort((post1, post2) => {
+                return post1[newValue]?.localeCompare(post2[newValue])
+                // 2nd variant
+                // return post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
+            })
+        }
     },
 
     methods: {
@@ -103,5 +128,10 @@ export default {
 h2 {
     color: DarkOrchid;
     margin-bottom: 1rem;
+}
+
+.AppButtons {
+    display: flex;
+    justify-content: space-between;
 }
 </style>

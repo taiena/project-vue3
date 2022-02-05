@@ -36,6 +36,16 @@ export default {
         }
     },
 
+    // example of watch inputs value
+    watch: {
+        post: {
+            handler(newValue) {
+                console.log(newValue);
+            },
+            deep: true
+        }
+    },
+
     methods: {
         createPost() {
             this.post.id = Date.now()

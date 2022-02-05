@@ -61,4 +61,5 @@ h3 {
 .post-list-move {
     transition: transform 0.8s ease;
 }
+
 </style>

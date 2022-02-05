@@ -1,32 +1,35 @@
 <template>
 <div class="Container">
     <div class="HeaderBlock">
-      <h2>Posts page</h2>
+        <h2>Posts page</h2>
 
-      <div class="AppButtons">
-          <my-button
-              @click="showDialog"
-          >
-              Create post
-          </my-button>
+        <div class="AppButtons">
+            <my-button
+                @click="showDialog"
+            >
+                Create post
+            </my-button>
 
-          <my-select
-              v-model="selectedSort"
-              :options="sortOptions"
-          />
-      </div>
+            <my-input
+                v-model="searchQuery"
+                placeholder="Search posts"
+            />
 
-      
+            <my-select
+                v-model="selectedSort"
+                :options="sortOptions"
+            />
+        </div>
     </div>
 
     <my-dialog v-model:show="dialogVisible">
-      <post-form
-        @create="createPost"
-      />
+        <post-form
+            @create="createPost"
+        />
     </my-dialog>
     
     <post-list
-        :posts="sortedPosts"
+        :posts="sortedAndSearchedPosts"
         @remove="removePost"
         v-if="!isPostsLoading"
     />
@@ -52,6 +55,7 @@ export default {
             dialogVisible: false,
             isPostsLoading: false,
             selectedSort: "",
+            searchQuery: "",
             sortOptions: [
                 {value: 'title', name: 'Sort for titles'},
                 {value: 'body', name: 'Sort for bodies'}
@@ -68,6 +72,10 @@ export default {
             return [...this.posts].sort((post1, post2) => {
                 return post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
             })
+        },
+
+        sortedAndSearchedPosts() {
+            return this.sortedPosts.filter(post => post.title.includes(this.searchQuery))
         }
     },
 
@@ -139,4 +147,5 @@ h2 {
     display: flex;
     justify-content: space-between;
 }
+
 </style>

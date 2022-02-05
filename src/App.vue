@@ -26,7 +26,7 @@
     </my-dialog>
     
     <post-list
-        :posts="posts"
+        :posts="sortedPosts"
         @remove="removePost"
         v-if="!isPostsLoading"
     />
@@ -63,16 +63,21 @@ export default {
         this.fetchPosts()
     },
 
-    watch: {
-        // сравниваем строки в полях у 2х постов (смотря какое поле выбрали)
-        selectedSort(newValue) {
-            this.posts.sort((post1, post2) => {
-                return post1[newValue]?.localeCompare(post2[newValue])
-                // 2nd variant
-                // return post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
+    computed: {
+        sortedPosts() {
+            return [...this.posts].sort((post1, post2) => {
+                return post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
             })
         }
     },
+
+    // watch: {
+    //     selectedSort(newValue) {
+    //         this.posts.sort((post1, post2) => {
+    //             return post1[newValue]?.localeCompare(post2[newValue])
+    //         })
+    //     }
+    // },
 
     methods: {
         createPost(post) {

@@ -28,7 +28,7 @@
         />
     </my-dialog>
 
-    <div class="Paginator">
+    <!-- <div class="Paginator">
         <div
             v-for="pageNumber in totalPages"
             :key="pageNumber"
@@ -40,7 +40,7 @@
         >
             {{ pageNumber }}
         </div>
-    </div>
+    </div> -->
     
     <post-list
         :posts="sortedAndSearchedPosts"
@@ -49,6 +49,10 @@
     />
 
     <div v-if="!isPostsLoading">Loading posts...</div>
+
+    <div ref="observer"></div>
+
+    
 </div>
 </template>
 
@@ -82,6 +86,21 @@ export default {
 
     mounted() {
         this.fetchPosts()
+
+        const options = {
+            rootMargin: '0px',
+            threshold: 1.0
+        }
+
+        const callback = (entries, observer) => {
+            if (entries[0].isIntersecting && this.posts.length < this.totalPages) {
+                this.loadMorePosts()
+            }
+        }
+
+        const observer = new IntersectionObserver(callback, options)
+
+        observer.observe(this.$refs.observer)
     },
 
     computed: {
@@ -97,9 +116,9 @@ export default {
     },
 
     watch: {
-        page() {
-            this.fetchPosts()
-        }
+        // page() {
+        //     this.fetchPosts()
+        // }
     },
 
     methods: {
@@ -116,9 +135,9 @@ export default {
             this.dialogVisible = true
         },
 
-        changePage(pageNumber) {
-            this.page = pageNumber
-        },
+        // changePage(pageNumber) {
+        //     this.page = pageNumber
+        // },
 
         async fetchPosts() {
             try {
@@ -139,6 +158,27 @@ export default {
                 alert('Some error')
             } finally {
                 this.isPostsLoading = false
+            }
+         },
+
+         async loadMorePosts() {
+            try {
+                this.page += 1
+
+                const response = await axios.get(
+                    "https://jsonplaceholder.typicode.com/posts", {
+                        params: {
+                            _page: this.page,
+                            _limit: this.limit
+                        }
+                    }
+                )
+                
+                this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
+                this.posts = [...this.posts, ...response.data]
+            } catch(e) {
+                alert('Some error')
+            } finally {
             }
          }
     }
@@ -173,7 +213,7 @@ h2 {
     justify-content: space-between;
 }
 
-.Paginator {
+/* .Paginator {
     margin-bottom: 1rem;
     display: flex;
 }
@@ -191,7 +231,6 @@ h2 {
 
 .CurrentPageNumber {
     background-color: Lavender;
-}
+} */
 
 </style>
-ё

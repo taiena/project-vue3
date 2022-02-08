@@ -48,7 +48,7 @@
         v-if="!isPostsLoading"
     />
 
-    <div v-if="!isPostsLoading">Loading posts...</div>
+    <div v-else>Loading posts...</div>
 
     <div ref="observer"></div>
 
@@ -93,7 +93,8 @@ export default {
         }
 
         const callback = (entries, observer) => {
-            if (entries[0].isIntersecting && this.posts.length < this.totalPages) {
+            if (entries[0].isIntersecting) {
+                console.log('load');
                 this.loadMorePosts()
             }
         }
@@ -151,8 +152,9 @@ export default {
                         }
                     }
                 )
-                
+
                 this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
+
                 this.posts = response.data
             } catch(e) {
                 alert('Some error')

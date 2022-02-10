@@ -6,12 +6,21 @@
             <div><strong>Description: </strong>{{ post.body }}</div>
         </div>
 
-        <my-button
-            @click="$emit('remove', post)"
-            type="sumbit"
-        >
-            Delete
-        </my-button>
+        <div class="PostBtns">
+            <my-button
+                @click="$router.push(`/posts/${post.id}`)"
+                type="button"
+            >
+                Open
+            </my-button>
+
+            <my-button
+                @click="$emit('remove', post)"
+                type="button"
+            >
+                Delete
+            </my-button>
+        </div>
 
     </div>
 </template>
@@ -38,6 +47,17 @@ export default {
     margin-bottom: 1rem;;
     border: 1px solid DarkOrchid;
     background-color: Ivory;
+}
+
+.PostBtns {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-left: 1rem;
+}
+
+.PostBtns button {
+    margin-left: 1rem;
 }
 
 </style>

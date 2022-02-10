@@ -40,7 +40,7 @@
 
     <div v-else>Loading posts...</div>
 
-    <div ref="observer"></div>
+    <div v-intersection="loadMorePosts"></div>
 </div>
 </div>
 </template>
@@ -75,22 +75,6 @@ export default {
 
     mounted() {
         this.fetchPosts()
-
-        const options = {
-            rootMargin: '0px',
-            threshold: 1.0
-        }
-
-        const callback = (entries, observer) => {
-            if (entries[0].isIntersecting) {
-                console.log('load');
-                this.loadMorePosts()
-            }
-        }
-
-        const observer = new IntersectionObserver(callback, options)
-
-        observer.observe(this.$refs.observer)
     },
 
     computed: {
@@ -160,6 +144,7 @@ export default {
             } catch(e) {
                 alert('Some error')
             } finally {
+                console.log('loadMorePosts')
             }
          }
     }

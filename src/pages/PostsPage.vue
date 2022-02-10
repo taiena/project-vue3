@@ -1,6 +1,9 @@
 <template>
+<div>
+<navbar />
 <div class="Container">
     <div class="HeaderBlock">
+         
         <router-link to="/">go to main</router-link>
         <h2>Posts page</h2>
 
@@ -38,8 +41,7 @@
     <div v-else>Loading posts...</div>
 
     <div ref="observer"></div>
-
-    
+</div>
 </div>
 </template>
 

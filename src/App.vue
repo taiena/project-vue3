@@ -8,7 +8,7 @@
 
 </script>
 
-<style scoped>
+<style>
 * {
     margin: 0;
     padding: 0;
@@ -16,6 +16,5 @@
 }
 
 .App {
-    padding-top: 1rem
 }
 </style>

@@ -1,7 +1,10 @@
 <template>
   <div>
-    <router-link to="/posts">go to posts</router-link>
-    <h1>Main page</h1>  
+    <navbar /> 
+    <div class="Container">
+      <router-link to="/posts">go to posts</router-link>
+      <h2>Main page</h2>
+    </div>
   </div>
 </template>
 
@@ -10,5 +13,8 @@
 </script>
 
 <style scoped>
-
+h2 {
+    color: DarkOrchid;
+    margin-bottom: 1rem;
+}
 </style>

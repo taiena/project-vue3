@@ -2,6 +2,7 @@
     <div class="Navbar">
         <div class="Link" @click="$router.push('/')">Main</div>
         <div class="Link" @click="$router.push('/posts')">Posts</div>
+        <div class="Link" @click="$router.push('/storeposts')">StorePosts</div>
     </div>
 </template>
 

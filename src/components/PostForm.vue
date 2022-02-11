@@ -1,6 +1,7 @@
 <template>
     <form class="Form">
         <my-input
+            v-focus
             v-model="post.title"
             class="Input"
             type="text"

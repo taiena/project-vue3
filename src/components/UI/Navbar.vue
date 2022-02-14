@@ -3,6 +3,7 @@
         <div class="Link" @click="$router.push('/')">Main</div>
         <div class="Link" @click="$router.push('/posts')">Posts</div>
         <div class="Link" @click="$router.push('/storeposts')">StorePosts</div>
+        <div class="Link" @click="$router.push('/compositionposts')">CompositionPosts</div>
     </div>
 </template>
 
